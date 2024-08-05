@@ -6,3 +6,4 @@ from products.models import Product, Order, OrderProduct
 admin.site.register(Product)
 admin.site.register(Order)
 admin.site.register(OrderProduct)
+# Vitalii test
