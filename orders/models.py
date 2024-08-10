@@ -33,3 +33,5 @@ def update_order_total_price(sender, instance, **kwargs):
 @receiver(pre_save, sender=OrderProduct)
 def update_order_product_price(sender, instance: OrderProduct, **kwargs):
     instance.price = instance.product.price * instance.quantity
+
+
