@@ -16,7 +16,7 @@ class Order(models.Model):
 
 
 class OrderProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_products')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.DecimalField(max_digits=10, decimal_places=3)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -26,7 +26,7 @@ class OrderProduct(models.Model):
 def update_order_total_price(sender, instance, **kwargs):
     with transaction.atomic():
         order = instance.order
-        order.total_price = sum([op.price for op in order.orderproduct_set.all()])
+        order.total_price = sum([op.price for op in order.order_products.all()])
         order.save()
 
 
