@@ -22,7 +22,7 @@ class OrderProductSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(default=serializers.CurrentUserDefault(), source='user.username')
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     order_products = OrderProductSerializer(many=True)
 
     class Meta:
