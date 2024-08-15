@@ -1,7 +1,5 @@
 from django.contrib import admin
 from inventory.models import Inventory
-from products.models import Product
-from django.db import models
 
 class InventoryInline(admin.TabularInline):
 	model = Inventory
