@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+
+import dj_database_url
 from dotenv import load_dotenv
 import os
 
@@ -89,16 +91,7 @@ WSGI_APPLICATION = 'hillelDjango4.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-
-SQLITE_DB = {
-    'default': {
-        # SQLite
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-POSTGRESQL_DB = {
+LOCAL_DB = {
     'default': {
         # PostgreSQL
         'ENGINE': 'django.db.backends.postgresql',
@@ -110,11 +103,24 @@ POSTGRESQL_DB = {
     }
 }
 
+HEROKU_DB = None
+if os.getenv('DATABASE_URL'):
+    HEROKU_DB = {
+        'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
+    }
 
-use_sqlite = os.getenv('USE_SQLITE') and os.getenv('USE_SQLITE').lower() == 'true'
+SQLITE_DB = None
+if os.getenv('USE_SQLITE') and os.getenv('USE_SQLITE').lower() == 'true':
+    SQLITE_DB = {
+        'default': {
+            # SQLite
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
-DATABASES = SQLITE_DB if use_sqlite else POSTGRESQL_DB
+DATABASES = HEROKU_DB or SQLITE_DB or LOCAL_DB
 
 
 # Password validation
