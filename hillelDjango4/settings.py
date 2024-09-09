@@ -89,7 +89,16 @@ WSGI_APPLICATION = 'hillelDjango4.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+
+SQLITE_DB = {
+    'default': {
+        # SQLite
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+POSTGRESQL_DB = {
     'default': {
         # PostgreSQL
         'ENGINE': 'django.db.backends.postgresql',
@@ -100,6 +109,10 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+
+DATABASES = SQLITE_DB if os.getenv('USE_SQLITE') == 'True' else POSTGRESQL_DB
+print(DATABASES)
 
 
 # Password validation
