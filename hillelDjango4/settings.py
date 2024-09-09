@@ -112,7 +112,6 @@ POSTGRESQL_DB = {
 
 
 DATABASES = SQLITE_DB if os.getenv('USE_SQLITE').lower() == 'true' else POSTGRESQL_DB
-print(DATABASES)
 
 
 # Password validation
