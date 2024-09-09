@@ -26,7 +26,8 @@ class SerializersTestCase(TestCase):
         self.assertEqual(serializer.data['display_name'], 'Test Product 💰')
 
     def test_product_serializer_price_and_18_plus(self):
-        product = Product.objects.create(name='Test Product', price=99, is_18_plus=True)
+        category = Category.objects.create(name='Food')
+        product = Product.objects.create(name='Test Product', price=99, is_18_plus=True, category=category)
         serializer = ProductSerializer(product)
 
         self.assertEqual(serializer.data['display_name'], 'Test Product 🔞 💰 🍔')

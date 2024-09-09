@@ -70,8 +70,7 @@ ROOT_URLCONF = 'hillelDjango4.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,7 +89,16 @@ WSGI_APPLICATION = 'hillelDjango4.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+
+SQLITE_DB = {
+    'default': {
+        # SQLite
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+POSTGRESQL_DB = {
     'default': {
         # PostgreSQL
         'ENGINE': 'django.db.backends.postgresql',
@@ -101,6 +109,9 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+
+DATABASES = SQLITE_DB if os.getenv('USE_SQLITE').lower() == 'true' else POSTGRESQL_DB
 
 
 # Password validation

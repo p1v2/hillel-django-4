@@ -44,4 +44,4 @@ class Command(BaseCommand):
             product.tags.add(*random_tags)
             product.save()
 
-        self.stdout.write(self.style.SUCCESS(f"Successfully created 1000 products with random tags."))
+        self.stdout.write(self.style.SUCCESS("Successfully created 1000 products with random tags."))
