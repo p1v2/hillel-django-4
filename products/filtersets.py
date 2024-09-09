@@ -1,4 +1,4 @@
-from django_filters import FilterSet, CharFilter, BooleanFilter
+from django_filters import FilterSet, CharFilter
 
 from products.models import Product
 
