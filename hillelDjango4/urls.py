@@ -24,6 +24,7 @@ from rest_framework.routers import DefaultRouter
 
 from orders.viewsets import OrderViewSet
 from products.viewsets import ProductViewSet
+from .views import hello_world
 
 router = DefaultRouter()
 router.register('products', ProductViewSet)
@@ -49,4 +50,5 @@ urlpatterns = [
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('hello-world', hello_world)
 ]
