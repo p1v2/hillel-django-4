@@ -21,7 +21,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_max_show_all = 100
 
     # Custom actions
-    actions = ['make_18_plus']
+    actions = ['make_18_plus', 'disable_18_plus']
 
     def make_18_plus(self, request, queryset):
         queryset.update(is_18_plus=True)
