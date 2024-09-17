@@ -21,7 +21,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     is_18_plus = models.BooleanField(default=False)
 
-    category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE, related_name='products')
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.CASCADE, related_name='products')
     # CASCADE - delete all products in this category
     # SET_NULL - set category to NULL
     # SET_DEFAULT - set category to default value
@@ -29,7 +29,7 @@ class Product(models.Model):
     # DO_NOTHING - do nothing
     # PROTECT - raise an error (same as RESTRICT)
 
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     # Active Record pattern
     created_at = models.DateTimeField(auto_now_add=True)
