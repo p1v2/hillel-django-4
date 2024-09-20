@@ -15,6 +15,13 @@ class Order(models.Model):
     products = models.ManyToManyField(Product, through='OrderProduct')
 
 
+@receiver(post_save, sender=Order)
+def order_create_signal(sender, instance, created, **kwargs):
+    if created:
+        from orders.tasks import send_order_creation_notification
+        send_order_creation_notification.delay(instance.pk)
+
+
 class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_products')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
