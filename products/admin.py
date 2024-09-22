@@ -1,11 +1,28 @@
 from django.contrib import admin
 
-from products.models import Product, Category, Tag
+from products.models import Product, Category, Tag, Store, Inventory
 
 # Register your models here.
 admin.site.register(Category)
 admin.site.register(Tag)
 
+@admin.register(Store)
+class StoreAdmin(admin.ModelAdmin):
+    list_display = ['name', 'location', 'created_at']
+    search_fields = ['name', 'location']
+    readonly_fields = ['created_at', 'updated_at']
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'location')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at')
+        }),
+    )
+
+class InventoryInline(admin.TabularInline):
+    model = Inventory
+    extra = 1
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
