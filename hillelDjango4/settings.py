@@ -195,3 +195,30 @@ CORS_ALLOWED_ORIGINS = [
 STATIC_ROOT = BASE_DIR / 'static'
 
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
+
+
+CELERY_BEAT_SCHEDULE = {
+    'report_orders_total': {
+        'task': 'orders.tasks.update_orders_total_report',
+        # every 60 seconds
+        'schedule': 10.0,
+        # every day at 00:00
+        # 'schedule': "crontab(hour=0, minute=0)",
+        # cron syntax
+        # 'schedule': "0 0 * * *",
+    },
+    'test_celery': {
+        'task': 'orders.tasks.test_celery',
+        # every 60 seconds
+        'schedule': 1.0,
+    },
+}
+
+CELERY_RESULT_BACKEND = 'db+postgresql://vitalii.pavliuk:postgres@localhost/celery_db'
+
+
+# Additional Celery settings
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
