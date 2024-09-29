@@ -43,6 +43,8 @@ class Store(models.Model):
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
 
+    products = models.ManyToManyField(Product, through='Inventory')
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
