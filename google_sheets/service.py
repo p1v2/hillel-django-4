@@ -15,9 +15,6 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(
 )
 
 
-SPREADSHEET_ID = "1EejvuKl2BjCax8b4uB6MrSbAWO6RU2G9B89cuZOU7xw"
-
-
 def get_google_sheets_client():
     return gspread.authorize(credentials)
 
