@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from graphene_django.views import GraphQLView
 from rest_framework import permissions
 from rest_framework.authtoken import views as authtoken_views
 from rest_framework.routers import DefaultRouter
@@ -56,5 +57,6 @@ urlpatterns = [
     path('telegram', telegram),
     path("accounts/", include("allauth.urls")),
     path("logout/", LogoutView.as_view(), name="logout"),
+    path("graphql", GraphQLView.as_view(graphiql=True)),
     path("", index, name="index"),
 ]
